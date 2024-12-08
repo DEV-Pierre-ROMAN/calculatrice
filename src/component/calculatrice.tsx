@@ -55,11 +55,13 @@ const calculateElems = (elems: string[]) => {
       if (copy[i] === ")") {
         const index = copy.slice(0, i).lastIndexOf("(");
         const result = calculateElems(copy.slice(index + 1, i));
-        copy = [...copy.slice(0, index), ...result, ...copy.slice(i + 1)];
+        copy = [...copy.slice(0, index), result, ...copy.slice(i + 1)];
         i = 0;
       }
     }
   }
+
+  console.log("calculateElems", copy);
 
   for (const operators of PRIORITY) {
     copy = calculateWithOperators(copy, operators);
@@ -125,6 +127,7 @@ const useCalcul = () => {
     ) {
       copy = copy.slice(0, -1);
     }
+
     return calculateElems(copy);
   };
 
